@@ -45,23 +45,40 @@ class _StudentScreenState extends State<StudentScreen> {
           child: ListView(
             children: [
               CustomTextFormField(
-                hintText: "student_name",
-                value: _editStudent.name,
+                labelText: "Student Name",
+                controller: TextEditingController(text: _editStudent.name),
                 onChanged: (value) {
-                  _editStudent.name = value!;
-                  setState(() {});
+                  _editStudent.name = value;
                 },
                 required: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter student name';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 20),
               CustomTextFormField(
-                hintText: "student_name",
-                value: _editStudent.name,
+                labelText: "Phone Number",
+                controller: TextEditingController(text: _editStudent.phone),
                 onChanged: (value) {
-                  _editStudent.name = value!;
-                  setState(() {});
+                  _editStudent.phone = value?.isNotEmpty == true ? value : null;
                 },
-                required: true,
+              ),
+              SizedBox(height: 20),
+              CustomTextFormField(
+                labelText: "Email",
+                controller: TextEditingController(text: _editStudent.email),
+                onChanged: (value) {
+                  _editStudent.email = value?.isNotEmpty == true ? value : null;
+                },
+                validator: (value) {
+                  if (value != null && value.isNotEmpty && !value.contains('@')) {
+                    return 'Please enter a valid email';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 40),
               ElevatedButton(

@@ -30,7 +30,7 @@ class _LessonListViewState extends State<LessonListView> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<LessonProvider>(context, listen: false);
+    final provider = Provider.of<LessonProvider>(context);
 
     return Scaffold(
       appBar: AppBar(title: Text(translate('lessons'))),
@@ -43,11 +43,20 @@ class _LessonListViewState extends State<LessonListView> {
                 return Card(
                   margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: ListTile(
-                    title: Text("${lesson.group?.id}"),
-                    subtitle: Text('Group: ${lesson.group}'),
+                    title: Text(lesson.topic ?? 'Lesson'),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Group: ${lesson.groupName ?? 'No Group'}'),
+                        if (lesson.date != null) 
+                          Text('Date: ${lesson.date!.toLocal().toString().split(' ')[0]}'),
+                        if (lesson.fromTime != null && lesson.toTime != null)
+                          Text('Time: ${lesson.fromTime!.hour}:${lesson.fromTime!.minute.toString().padLeft(2, '0')} - ${lesson.toTime!.hour}:${lesson.toTime!.minute.toString().padLeft(2, '0')}'),
+                      ],
+                    ),
                     trailing: EditAndDeleteButtons(
                       onEditTapped: () => provider.editLesson(context, lesson),
-                      onDeleteTapped: () => provider.deleteLesson(index),
+                      onDeleteTapped: () => provider.deleteLessonByIndex(index),
                     ),
                     // onTap: () => _showStudentDetails(lesson),
                   ),

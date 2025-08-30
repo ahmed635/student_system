@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:student_system/config/app_colors.dart';
+import 'package:student_system/providers/auth_provider.dart';
 import 'package:student_system/utils/common_utils.dart';
 import 'package:student_system/views/auth/login_screen.dart';
+import 'package:student_system/views/screens/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   static String routeName = "/splash_screen";
@@ -22,14 +25,25 @@ class _SplashScreenState extends State<SplashScreen> {
 
   initializeScreen() async {
     await CommonUtils.changeLanguage(context);
-    await _navigateToHome();
+    await _checkAuthAndNavigate();
     setState(() {});
   }
 
-  _navigateToHome() async {
-    await Future.delayed(const Duration(seconds: 3));
-    Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-    return;
+  _checkAuthAndNavigate() async {
+    await Future.delayed(const Duration(seconds: 2));
+    
+    if (mounted) {
+      final authProvider = context.read<AuthProvider>();
+      final user = authProvider.user;
+      
+      if (user != null) {
+        // User is logged in, navigate to home
+        Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+      } else {
+        // User is not logged in, navigate to login
+        Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+      }
+    }
   }
 
   @override

@@ -52,21 +52,26 @@ class _GroupListViewState extends State<GroupListView> {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: ListTile(
                     title: Text(
-                      'ID: ${group.id}',
+                      group.name ?? 'Unnamed Group',
                       style: TextStyle(
                         color: AppColors.primary,
                         fontWeight: FontWeight.bold,
+                        fontSize: 18,
                       ),
                     ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       spacing: 5,
                       children: [
-                        Text('Name: ${group.name}'),
+                        Text('ID: ${group.id ?? 'N/A'}'),
+                        if (group.createdAt != null)
+                          Text('Created: ${group.createdAt!.toLocal().toString().split(' ')[0]}'),
+                        if (group.updatedAt != null)
+                          Text('Updated: ${group.updatedAt!.toLocal().toString().split(' ')[0]}'),
                       ],
                     ),
                     trailing: EditAndDeleteButtons(
-                      onDeleteTapped: () => provider.deleteGroup(index),
+                      onDeleteTapped: () => provider.deleteGroupByIndex(index),
                       onEditTapped: () => provider.editGroup(context, group),
                     ),
                   ),

@@ -44,12 +44,19 @@ class _StudentListViewState extends State<StudentListView> {
                 return Card(
                   margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: ListTile(
-                    title: Text("${student.name}"),
-                    subtitle: Text('Group: ${student.group}'),
+                    title: Text(student.name ?? 'Unknown Student'),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Group: ${student.groupName ?? 'No Group'}'),
+                        if (student.phone != null) Text('Phone: ${student.phone}'),
+                        if (student.email != null) Text('Email: ${student.email}'),
+                      ],
+                    ),
                     trailing: EditAndDeleteButtons(
                       onEditTapped: () =>
                           provider.editStudent(context, student),
-                      onDeleteTapped: () => provider.deleteStudent(index),
+                      onDeleteTapped: () => provider.deleteStudentByIndex(index),
                     ),
                     onTap: () => _showStudentDetails(student),
                   ),
@@ -66,13 +73,17 @@ class _StudentListViewState extends State<StudentListView> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("${student.name}"),
+        title: Text(student.name ?? 'Unknown Student'),
         content: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('ID: ${student.id}'),
-              Text('Group: ${student.group}'),
+              Text('ID: ${student.id ?? 'N/A'}'),
+              Text('Group: ${student.groupName ?? 'No Group'}'),
+              if (student.phone != null) Text('Phone: ${student.phone}'),
+              if (student.email != null) Text('Email: ${student.email}'),
+              if (student.createdAt != null) 
+                Text('Created: ${student.createdAt!.toLocal().toString().split(' ')[0]}'),
             ],
           ),
         ),

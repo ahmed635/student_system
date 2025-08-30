@@ -44,16 +44,19 @@ class _GroupScreenState extends State<GroupScreen> {
           child: ListView(
             children: [
               CustomTextFormField(
-                hintText: "group_name",
-                value: _editGroup.name,
+                labelText: "Group Name",
+                controller: TextEditingController(text: _editGroup.name),
                 onChanged: (value) {
-                  _editGroup.name = value!;
-                  setState(() {});
+                  _editGroup.name = value;
                 },
                 required: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter group name';
+                  }
+                  return null;
+                },
               ),
-              SizedBox(height: 16),
-              SizedBox(height: 16),
               SizedBox(height: 32),
               ElevatedButton(
                 onPressed: () => _saveGroup(groupProvider),

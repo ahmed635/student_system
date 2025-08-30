@@ -58,16 +58,80 @@ class _LessonScreenState extends State<LessonScreen> {
           child: Column(
             spacing: 20,
             children: [
-              CustomDropdownMenu<Group>(
-                hintText: "Group",
-                items: groups,
-                selectedItem: _editLesson.group,
-                compareFn: (p0, p1) => ObjectChecker.areEqual(p0.id, p1.id),
+              if (groups.isNotEmpty)
+                CustomDropdownMenu<Group>(
+                  hintText: "Select Group",
+                  items: groups,
+                  selectedItem: _editLesson.groupId != null 
+                      ? groups.where((g) => g.id == _editLesson.groupId).isNotEmpty
+                          ? groups.firstWhere((g) => g.id == _editLesson.groupId)
+                          : null
+                      : null,
+                  compareFn: (p0, p1) => ObjectChecker.areEqual(p0.id, p1.id),
+                  onChanged: (value) {
+                    setState(() {
+                      _editLesson.groupId = value?.id;
+                      _editLesson.groupName = value?.name;
+                      // Load students for this group
+                    });
+                  },
+                )
+              else 
+                Container(
+                  padding: EdgeInsets.all(16),
+                  child: Text('No groups available. Please create a group first.'),
+                ),
+              
+              // Topic Input
+              TextFormField(
+                initialValue: _editLesson.topic,
+                decoration: InputDecoration(
+                  labelText: 'Topic',
+                  border: OutlineInputBorder(),
+                ),
                 onChanged: (value) {
-                  setState(() {
-                    _editLesson.group = value;
-                    // Load students for this group
-                  });
+                  _editLesson.topic = value.isNotEmpty ? value : null;
+                },
+              ),
+              
+              // Date Input
+              InkWell(
+                onTap: () async {
+                  final date = await showDatePicker(
+                    context: context,
+                    initialDate: _editLesson.date ?? DateTime.now(),
+                    firstDate: DateTime(2020),
+                    lastDate: DateTime(2030),
+                  );
+                  if (date != null) {
+                    setState(() {
+                      _editLesson.date = date;
+                    });
+                  }
+                },
+                child: InputDecorator(
+                  decoration: InputDecoration(
+                    labelText: 'Date',
+                    border: OutlineInputBorder(),
+                  ),
+                  child: Text(
+                    _editLesson.date != null 
+                        ? _editLesson.date!.toLocal().toString().split(' ')[0]
+                        : 'Select Date',
+                  ),
+                ),
+              ),
+              
+              // Notes Input
+              TextFormField(
+                initialValue: _editLesson.notes,
+                decoration: InputDecoration(
+                  labelText: 'Notes',
+                  border: OutlineInputBorder(),
+                ),
+                maxLines: 3,
+                onChanged: (value) {
+                  _editLesson.notes = value.isNotEmpty ? value : null;
                 },
               ),
               SingleChildScrollView(
@@ -96,11 +160,11 @@ class _LessonScreenState extends State<LessonScreen> {
                         _buildHeaderLabel('Attended'),
                         _buildHeaderLabel('Paid'),
                       ],
-                      rows: provider.lines.map((line) {
+                      rows: provider.getLessonLines(_editLesson.id ?? '').map((line) {
                         return DataRow(
                           color: WidgetStateProperty.all(AppColors.card),
                           cells: [
-                            DataCell(Center(child: Text(line.student!.name!))),
+                            DataCell(Center(child: Text(line.studentName ?? 'Unknown'))),
                             DataCell(
                               Center(
                                 child: Checkbox(
