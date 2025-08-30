@@ -1,5 +1,5 @@
 {
-  "student_system": "الحضور",
+  "student_system": "نظام الطلاب",
   "main_page": "الصفحة الرئيسية",
   "add_student": "إضافة طالب",
   "add_group": "إضافة مجموعة",
@@ -16,5 +16,23 @@
   "centers": "المراكز",
   "groups": "المجموعات",
   "assistants": "المساعدين",
-  "logout": "تسجيل الخروج"
+  "logout": "تسجيل الخروج",
+  "login": "تسجيل الدخول",
+  "register": "إنشاء حساب",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "confirm_password": "تأكيد كلمة المرور",
+  "full_name": "الاسم الكامل",
+  "forgot_password": "هل نسيت كلمة المرور؟",
+  "dont_have_account": "ليس لديك حساب؟",
+  "already_have_account": "لديك حساب بالفعل؟",
+  "create_account": "إنشاء حساب جديد",
+  "please_enter_email": "الرجاء إدخال بريدك الإلكتروني",
+  "please_enter_valid_email": "الرجاء إدخال بريد إلكتروني صحيح",
+  "please_enter_password": "الرجاء إدخال كلمة المرور",
+  "please_confirm_password": "الرجاء تأكيد كلمة المرور",
+  "please_enter_name": "الرجاء إدخال اسمك",
+  "password_too_short": "كلمة المرور يجب أن تكون 6 أحرف على الأقل",
+  "passwords_dont_match": "كلمات المرور غير متطابقة",
+  "name_too_short": "الاسم يجب أن يكون 3 أحرف على الأقل"
 }
