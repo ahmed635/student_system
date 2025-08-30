@@ -1,0 +1,20 @@
+{
+  "student_system": "SA",
+  "main_page": "Main Page",
+  "add_student": "Add Student",
+  "add_group": "Add Group",
+  "add_center": "Add Center",
+  "add_lesson": "Add Lesson",
+  "add_assistant": "Add Assistant",
+  "edit_assistant": "Edit Assistant",
+  "edit_group": "Edit Group",
+  "edit_center": "Edit Center",
+  "edit_student": "Edit Student",
+  "edit_lesson": "Edit Lesson",
+  "lessons": "Lessons",
+  "students": "Students",
+  "centers": "Centers",
+  "groups": "Groups",
+  "assistants": "Assistants",
+  "logout": "Logout"
+}

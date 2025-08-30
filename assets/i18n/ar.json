@@ -1,0 +1,20 @@
+{
+  "student_system": "الحضور",
+  "main_page": "الصفحة الرئيسية",
+  "add_student": "إضافة طالب",
+  "add_group": "إضافة مجموعة",
+  "add_center": "إضافة مركز",
+  "add_lesson": "إضافة حصة",
+  "add_assistant": "إضافة مساعد",
+  "edit_assistant": "تعديل المساعد",
+  "edit_group": "تعديل المجموعة",
+  "edit_center": "تعديل المركز",
+  "edit_student": "تعديل الطالب",
+  "edit_lesson": "تعديل الحصة",
+  "lessons": "الحصص",
+  "students": "الطلاب",
+  "centers": "المراكز",
+  "groups": "المجموعات",
+  "assistants": "المساعدين",
+  "logout": "تسجيل الخروج"
+}
